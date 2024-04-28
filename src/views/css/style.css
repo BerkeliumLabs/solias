@@ -1,0 +1,14 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+.aside-nav {
+  background-color: #eee;
+  color: #343434;
+}
+
+.aside-body__text-container {
+  width: 100%;
+  height: calc(100vh - 150px);
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,14 @@
+{
+  "name": "aside",
+  "productName": "ASIDE",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "electron ."
+  },
+  "main": "src/main.js",
+  "private": true,
+  "devDependencies": {
+    "electron": "^28.1.4",
+    "electron-reloader": "^1.2.3"
+  }
+}

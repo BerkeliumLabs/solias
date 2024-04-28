@@ -1,0 +1,53 @@
+/* Roboto regular */
+
+@font-face {
+    font-family: "Roboto";
+    src: local('Roboto Light');
+    src: url("Roboto/Roboto-Light.woff2") format('woff2'), url("Roboto/Roboto-Light.woff") format('woff');
+    font-display: swap;
+    font-weight: 300;
+    font-style: inherit;
+}
+
+
+/* Roboto regular */
+
+@font-face {
+    font-family: "Roboto";
+    src: local('Roboto Regular');
+    src: url("Roboto/Roboto-Regular.woff2") format('woff2'), url("Roboto/Roboto-Regular.woff") format('woff');
+    font-display: swap;
+    font-weight: 400;
+    font-style: inherit;
+}
+
+
+/* Roboto Medium */
+
+@font-face {
+    font-family: "Roboto";
+    src: local('Roboto Medium');
+    src: url('Roboto/Roboto-Medium.woff2') format('woff2'), url('Roboto/Roboto-Medium.woff') format('woff');
+    font-display: swap;
+    font-weight: 500;
+    font-style: inherit;
+}
+
+
+/* Roboto Bold */
+
+@font-face {
+    font-family: "Roboto";
+    src: local('Roboto Bold');
+    src: url('Roboto/Roboto-Bold.woff2') format('woff2'), url('Roboto/Roboto-Bold.woff') format('woff');
+    font-display: swap;
+    font-weight: 700;
+    font-style: inherit;
+}
+
+*,
+:root,
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+}
