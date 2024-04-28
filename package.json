@@ -10,5 +10,8 @@
   "devDependencies": {
     "electron": "^28.1.4",
     "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "grapesjs": "^0.21.10"
   }
 }
