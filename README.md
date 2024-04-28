@@ -1,1 +1,3 @@
-# A side Project 😉
+# Project Solias
+
+Stay tuned
