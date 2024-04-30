@@ -3,13 +3,14 @@
   "productName": "Solias",
   "version": "0.0.0",
   "scripts": {
-    "start": "electron ."
+    "start": "nodemon --watch . --exec electron ."
   },
   "main": "src/main.js",
   "private": true,
   "devDependencies": {
     "electron": "^28.1.4",
-    "electron-reloader": "^1.2.3"
+    "electron-reloader": "^1.2.3",
+    "nodemon": "^3.1.0"
   },
   "dependencies": {
     "grapesjs": "^0.21.10"
