@@ -1,6 +1,6 @@
 {
-  "name": "aside",
-  "productName": "ASIDE",
+  "name": "solias",
+  "productName": "Solias",
   "version": "0.0.0",
   "scripts": {
     "start": "electron ."
