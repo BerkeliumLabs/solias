@@ -1,3 +1,3 @@
-# Project Solias
+# Solias Project
 
-Stay tuned
+Stay tuned...
