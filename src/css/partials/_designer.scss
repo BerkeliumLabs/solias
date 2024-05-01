@@ -1,0 +1,12 @@
+.solias-designer {
+    &__panel {
+        padding: 0;
+        width: 100%;
+        display: flex;
+        position: initial;
+        justify-content: space-between;
+    }
+    &__actions {
+        position: initial;
+    }
+}

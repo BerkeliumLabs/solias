@@ -1,3 +1,14 @@
+.solias-designer__panel {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  position: initial;
+  justify-content: space-between;
+}
+.solias-designer__actions {
+  position: initial;
+}
+
 html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
