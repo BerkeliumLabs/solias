@@ -1,4 +1,5 @@
 import grapesjs from 'grapesjs';
+import { SOLIAS_BLOCKS } from './_shared/blocks';
 
 window.onload = () => {
     const editor = grapesjs.init({
@@ -8,12 +9,17 @@ window.onload = () => {
         // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
         fromElement: true,
         // Size of the editor
-        height: '300px',
+        height: '100vh',
         width: 'auto',
         // Disable the storage manager for the moment
         storageManager: false,
         // Avoid any default panel
         panels: { defaults: [] },
+        // Block Manager
+        blockManager: {
+            appendTo: '#blocks',
+            blocks: SOLIAS_BLOCKS
+        },
     });
 
 };
