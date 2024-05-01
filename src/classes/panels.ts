@@ -7,11 +7,11 @@ export class SoliasPanels {
     loadPanels() {
         this.editor.Panels.addPanel({
             id: 'panel-top',
-            el: '#panel-container',
+            el: '#tool-bar',
         });
         this.editor.Panels.addPanel({
             id: 'basic-actions',
-            el: '#panel-actions',
+            el: '#tool-actions',
             buttons: [
                 {
                     id: 'visibility',

@@ -1,5 +1,18 @@
 .solias-designer {
-    &__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    height: 100vh;
+    &__workspace {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+        flex-grow: 1;
+    }
+    &__panel-top {
         padding: 0;
         width: 100%;
         display: flex;
@@ -8,5 +21,13 @@
     }
     &__actions {
         position: initial;
+    }
+    &__panel-right {
+        flex-basis: 230px;
+        position: relative;
+        overflow-y: auto;
+    }
+    &__canvas {
+        flex-grow: 1;
     }
 }

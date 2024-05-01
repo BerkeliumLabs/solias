@@ -1,4 +1,19 @@
-.solias-designer__panel {
+.solias-designer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  height: 100vh;
+}
+.solias-designer__workspace {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-grow: 1;
+}
+.solias-designer__panel-top {
   padding: 0;
   width: 100%;
   display: flex;
@@ -7,6 +22,14 @@
 }
 .solias-designer__actions {
   position: initial;
+}
+.solias-designer__panel-right {
+  flex-basis: 230px;
+  position: relative;
+  overflow-y: auto;
+}
+.solias-designer__canvas {
+  flex-grow: 1;
 }
 
 html, body {
