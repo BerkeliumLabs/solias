@@ -1,18 +1,56 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+.solias-designer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  height: 100vh;
 }
-
-/* Let's highlight canvas boundaries */
-#gjs {
-  border: 3px solid #444;
+.solias-designer__workspace {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-grow: 1;
 }
-
-/* Reset some default styling */
-.gjs-cv-canvas {
+.solias-designer__panel-top {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  position: initial;
+  justify-content: space-between;
+}
+.solias-designer__actions {
+  position: initial;
+}
+.solias-designer__panel-right {
+  flex-basis: 230px;
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.solias-designer__canvas {
+  flex-grow: 1;
+  /* Reset some default styling */
+}
+.solias-designer__canvas .gjs-cv-canvas {
   top: 0;
   width: 100%;
   height: 100%;
+}
+.solias-designer__blocks .gjs-block {
+  width: auto;
+  height: auto;
+  min-height: auto;
+}
+.solias-designer__switcher {
+  position: initial;
+}
+
+/* Normalize */
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }/*# sourceMappingURL=index.css.map */
