@@ -27,6 +27,8 @@
   flex-basis: 230px;
   position: relative;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 .solias-designer__canvas {
   flex-grow: 1;
@@ -41,6 +43,9 @@
   width: auto;
   height: auto;
   min-height: auto;
+}
+.solias-designer__switcher {
+  position: initial;
 }
 
 /* Normalize */

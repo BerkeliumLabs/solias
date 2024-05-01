@@ -26,6 +26,8 @@
         flex-basis: 230px;
         position: relative;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
     }
     &__canvas {
         flex-grow: 1;
@@ -42,5 +44,8 @@
             height: auto;
             min-height: auto;
         }
+    }
+    &__switcher {
+        position: initial;
     }
 }
