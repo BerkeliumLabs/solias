@@ -41,53 +41,6 @@ export class SoliasGrapesJS {
                             keyWidth: 'flex-basis',
                         },
                     },
-                    {
-                        id: 'panel-switcher',
-                        el: '#panel-switcher',
-                        buttons: [
-                            {
-                                id: 'show-blocks',
-                                active: true,
-                                command: 'show-blocks',
-                                // Once activated disable the possibility to turn it off
-                                togglable: false,
-                            },
-                            {
-                                id: 'show-layers',
-                                active: true,
-                                command: 'show-layers',
-                                togglable: false,
-                            },
-                            {
-                                id: 'show-style',
-                                active: true,
-                                command: 'show-styles',
-                                togglable: false,
-                            },
-                            {
-                                id: 'show-traits',
-                                active: true,
-                                command: 'show-traits',
-                                togglable: false,
-                            }
-                        ]
-                    },
-                    {
-                        id: 'panel-devices',
-                        el: '#panel-devices',
-                        buttons: [
-                            {
-                                id: 'device-desktop',
-                                command: 'set-device-desktop',
-                                active: true,
-                                togglable: false,
-                            }, {
-                                id: 'device-mobile',
-                                command: 'set-device-mobile',
-                                togglable: false,
-                            }
-                        ],
-                    }
                 ]
             },
             // Block Manager
@@ -137,19 +90,19 @@ export class SoliasGrapesJS {
                 {
                     id: 'visibility',
                     active: true, // active by default
-                    className: 'btn-toggle-borders',
-                    label: '<u>B</u>',
+                    className: 'material-icons',
+                    label: 'border_style',
                     command: 'sw-visibility', // Built-in command
                 }, {
                     id: 'export',
-                    className: 'btn-open-export',
-                    label: 'Exp',
+                    className: 'material-icons',
+                    label: 'code',
                     command: 'export-template',
                     context: 'export-template', // For grouping context of buttons from the same panel
                 }, {
                     id: 'show-json',
-                    className: 'btn-show-json',
-                    label: 'JSON',
+                    className: 'material-icons',
+                    label: 'data_object',
                     context: 'show-json',
                     command: (() => {
                         this.editor.Modal.setTitle('Components JSON')
@@ -160,6 +113,64 @@ export class SoliasGrapesJS {
                     }).bind(this),
                 }
             ],
+        });
+        this.editor.Panels.addPanel({
+            id: 'panel-devices',
+            el: '#panel-devices',
+            buttons: [
+                {
+                    id: 'device-desktop',
+                    command: 'set-device-desktop',
+                    className: 'material-icons',
+                    label: 'desktop_windows',
+                    active: true,
+                    togglable: false,
+                }, {
+                    id: 'device-mobile',
+                    className: 'material-icons',
+                    label: 'phone_android',
+                    command: 'set-device-mobile',
+                    togglable: false,
+                }
+            ],
+        });
+        this.editor.Panels.addPanel({
+            id: 'panel-switcher',
+            el: '#panel-switcher',
+            buttons: [
+                {
+                    id: 'show-blocks',
+                    active: true,
+                    command: 'show-blocks',
+                    className: 'material-icons',
+                    label: 'interests',
+                    togglable: false,
+                },
+                {
+                    id: 'show-layers',
+                    active: true,
+                    command: 'show-layers',
+                    className: 'material-icons',
+                    label: 'layers',
+                    togglable: false,
+                },
+                {
+                    id: 'show-style',
+                    active: true,
+                    command: 'show-styles',
+                    className: 'material-icons',
+                    label: 'format_color_fill',
+                    togglable: false,
+                },
+                {
+                    id: 'show-traits',
+                    active: true,
+                    command: 'show-traits',
+                    className: 'material-icons',
+                    label: 'settings',
+                    togglable: false,
+                }
+            ]
         });
 
         /* GrapeJS Commands */
