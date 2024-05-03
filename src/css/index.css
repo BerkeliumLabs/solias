@@ -47,6 +47,9 @@
 .solias-designer__switcher {
   position: initial;
 }
+.solias-designer__devices {
+  position: initial;
+}
 
 /* Normalize */
 html, body {

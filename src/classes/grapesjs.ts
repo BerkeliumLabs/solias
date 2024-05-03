@@ -71,6 +71,22 @@ export class SoliasGrapesJS {
                                 togglable: false,
                             }
                         ]
+                    },
+                    {
+                        id: 'panel-devices',
+                        el: '#panel-devices',
+                        buttons: [
+                            {
+                                id: 'device-desktop',
+                                command: 'set-device-desktop',
+                                active: true,
+                                togglable: false,
+                            }, {
+                                id: 'device-mobile',
+                                command: 'set-device-mobile',
+                                togglable: false,
+                            }
+                        ],
                     }
                 ]
             },
@@ -93,6 +109,19 @@ export class SoliasGrapesJS {
             // Triats Manager
             traitManager: {
                 appendTo: '#traits-palette',
+            },
+            // Device manager
+            deviceManager: {
+                devices: [
+                    {
+                        name: 'Desktop',
+                        width: '', // default size
+                    }, {
+                        name: 'Mobile',
+                        width: '320px', // this value will be used on canvas width
+                        widthMedia: '480px', // this value will be used in CSS @media
+                    }
+                ]
             },
         });
 
@@ -185,6 +214,12 @@ export class SoliasGrapesJS {
                 const elmt = this.getLayersEl(this.getRowEl(editor));
                 elmt.style.display = 'none';
             },
+        });
+        this.editor.Commands.add('set-device-desktop', {
+            run: editor => editor.setDevice('Desktop')
+        });
+        this.editor.Commands.add('set-device-mobile', {
+            run: editor => editor.setDevice('Mobile')
         });
     }
 }
