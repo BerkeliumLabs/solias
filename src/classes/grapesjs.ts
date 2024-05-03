@@ -221,5 +221,7 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('set-device-mobile', {
             run: editor => editor.setDevice('Mobile')
         });
+
+        this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
     }
 }
