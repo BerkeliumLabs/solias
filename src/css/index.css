@@ -1,3 +1,33 @@
+:root {
+  --gjs-primary-color: #10172A;
+  --gjs-secondary-color: #CBD5E1;
+  --gjs-tertiary-color: #1E293B;
+  --gjs-quaternary-color: #2563EC;
+}
+
+/* fallback */
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/material-icons.woff2") format("woff2");
+}
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
 .solias-designer {
   display: flex;
   flex-direction: column;
@@ -45,6 +75,9 @@
   min-height: auto;
 }
 .solias-designer__switcher {
+  position: initial;
+}
+.solias-designer__devices {
   position: initial;
 }
 

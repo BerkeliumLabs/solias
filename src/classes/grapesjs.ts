@@ -1,5 +1,6 @@
 import grapesjs, { Editor } from "grapesjs";
 import { SOLIAS_BLOCKS } from "../shared/constants/blocks";
+import { SOLIAS_STYLE_SELECTORS } from "../shared/constants/style-selectors";
 
 export class SoliasGrapesJS {
     public editor: Editor;
@@ -40,31 +41,6 @@ export class SoliasGrapesJS {
                             keyWidth: 'flex-basis',
                         },
                     },
-                    {
-                        id: 'panel-switcher',
-                        el: '#panel-switcher',
-                        buttons: [
-                            {
-                                id: 'show-blocks',
-                                active: true,
-                                command: 'show-blocks',
-                                // Once activated disable the possibility to turn it off
-                                togglable: false,
-                            },
-                            {
-                                id: 'show-layers',
-                                active: true,
-                                command: 'show-layers',
-                                togglable: false,
-                            },
-                            {
-                                id: 'show-style',
-                                active: true,
-                                command: 'show-styles',
-                                togglable: false,
-                            }
-                        ]
-                    }
                 ]
             },
             // Block Manager
@@ -81,48 +57,25 @@ export class SoliasGrapesJS {
             },
             styleManager: {
                 appendTo: '#style-palette',
-                sectors: [
+                sectors: SOLIAS_STYLE_SELECTORS
+            },
+            // Triats Manager
+            traitManager: {
+                appendTo: '#traits-palette',
+            },
+            // Device manager
+            deviceManager: {
+                devices: [
                     {
-                        name: 'Dimension',
-                        open: false,
-                        // Use built-in properties
-                        buildProps: ['width', 'min-height', 'padding'],
-                        // Use `properties` to define/override single property
-                        properties: [
-                            {
-                                // Type of the input,
-                                // options: integer | radio | select | color | slider | file | composite | stack
-                                type: 'integer',
-                                name: 'The width', // Label for the property
-                                property: 'width', // CSS property (if buildProps contains it will be extended)
-                                units: ['px', '%'], // Units, available only for 'integer' types
-                                defaults: 'auto', // Default value
-                                min: 0, // Min value, available only for 'integer' types
-                            }
-                        ]
-                    },
-                    {
-                        name: 'Extra',
-                        open: false,
-                        buildProps: ['background-color', 'box-shadow', 'custom-prop'],
-                        properties: [
-                            {
-                                id: 'custom-prop',
-                                name: 'Custom Label',
-                                property: 'font-size',
-                                type: 'select',
-                                defaults: '32px',
-                                // List of options, available only for 'select' and 'radio'  types
-                                options: [
-                                    { id: "1", value: '12px', name: 'Tiny' },
-                                    { id: "1", value: '18px', name: 'Medium' },
-                                    { id: "1", value: '32px', name: 'Big' },
-                                ],
-                            }
-                        ]
+                        name: 'Desktop',
+                        width: '', // default size
+                    }, {
+                        name: 'Mobile',
+                        width: '320px', // this value will be used on canvas width
+                        widthMedia: '480px', // this value will be used in CSS @media
                     }
                 ]
-            }
+            },
         });
 
         /* Load Panels */
@@ -137,19 +90,19 @@ export class SoliasGrapesJS {
                 {
                     id: 'visibility',
                     active: true, // active by default
-                    className: 'btn-toggle-borders',
-                    label: '<u>B</u>',
+                    className: 'material-icons',
+                    label: 'border_style',
                     command: 'sw-visibility', // Built-in command
                 }, {
                     id: 'export',
-                    className: 'btn-open-export',
-                    label: 'Exp',
+                    className: 'material-icons',
+                    label: 'code',
                     command: 'export-template',
                     context: 'export-template', // For grouping context of buttons from the same panel
                 }, {
                     id: 'show-json',
-                    className: 'btn-show-json',
-                    label: 'JSON',
+                    className: 'material-icons',
+                    label: 'data_object',
                     context: 'show-json',
                     command: (() => {
                         this.editor.Modal.setTitle('Components JSON')
@@ -161,17 +114,75 @@ export class SoliasGrapesJS {
                 }
             ],
         });
+        this.editor.Panels.addPanel({
+            id: 'panel-devices',
+            el: '#panel-devices',
+            buttons: [
+                {
+                    id: 'device-desktop',
+                    command: 'set-device-desktop',
+                    className: 'material-icons',
+                    label: 'desktop_windows',
+                    active: true,
+                    togglable: false,
+                }, {
+                    id: 'device-mobile',
+                    className: 'material-icons',
+                    label: 'phone_android',
+                    command: 'set-device-mobile',
+                    togglable: false,
+                }
+            ],
+        });
+        this.editor.Panels.addPanel({
+            id: 'panel-switcher',
+            el: '#panel-switcher',
+            buttons: [
+                {
+                    id: 'show-blocks',
+                    active: true,
+                    command: 'show-blocks',
+                    className: 'material-icons',
+                    label: 'interests',
+                    togglable: false,
+                },
+                {
+                    id: 'show-layers',
+                    active: true,
+                    command: 'show-layers',
+                    className: 'material-icons',
+                    label: 'layers',
+                    togglable: false,
+                },
+                {
+                    id: 'show-style',
+                    active: true,
+                    command: 'show-styles',
+                    className: 'material-icons',
+                    label: 'format_color_fill',
+                    togglable: false,
+                },
+                {
+                    id: 'show-traits',
+                    active: true,
+                    command: 'show-traits',
+                    className: 'material-icons',
+                    label: 'settings',
+                    togglable: false,
+                }
+            ]
+        });
 
         /* GrapeJS Commands */
         this.editor.Commands.add('show-blocks', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#blocks-palette') },
-    
-            run(editor, sender) {
+
+            run(editor) {
                 const elmt = this.getLayersEl(this.getRowEl(editor));
                 elmt.style.display = 'block';
             },
-            stop(editor, sender) {
+            stop(editor) {
                 const elmt = this.getLayersEl(this.getRowEl(editor));
                 elmt.style.display = 'none';
             },
@@ -179,12 +190,12 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('show-layers', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#layers-palette') },
-    
-            run(editor, sender) {
+
+            run(editor) {
                 const lmEl = this.getLayersEl(this.getRowEl(editor));
                 lmEl.style.display = 'block';
             },
-            stop(editor, sender) {
+            stop(editor) {
                 const lmEl = this.getLayersEl(this.getRowEl(editor));
                 lmEl.style.display = 'none';
             },
@@ -192,15 +203,36 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('show-styles', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getStyleEl(row: HTMLDivElement) { return row.querySelector('#style-palette') },
-    
-            run(editor, sender) {
+
+            run(editor) {
                 const smEl = this.getStyleEl(this.getRowEl(editor));
                 smEl.style.display = 'block';
             },
-            stop(editor, sender) {
+            stop(editor) {
                 const smEl = this.getStyleEl(this.getRowEl(editor));
                 smEl.style.display = 'none';
             },
         });
+        this.editor.Commands.add('show-traits', {
+            getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
+            getLayersEl(row: HTMLDivElement) { return row.querySelector('#traits-palette') },
+
+            run(editor) {
+                const elmt = this.getLayersEl(this.getRowEl(editor));
+                elmt.style.display = 'block';
+            },
+            stop(editor) {
+                const elmt = this.getLayersEl(this.getRowEl(editor));
+                elmt.style.display = 'none';
+            },
+        });
+        this.editor.Commands.add('set-device-desktop', {
+            run: editor => editor.setDevice('Desktop')
+        });
+        this.editor.Commands.add('set-device-mobile', {
+            run: editor => editor.setDevice('Mobile')
+        });
+
+        this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
     }
 }
