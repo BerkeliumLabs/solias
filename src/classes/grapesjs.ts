@@ -63,6 +63,12 @@ export class SoliasGrapesJS {
                                 active: true,
                                 command: 'show-styles',
                                 togglable: false,
+                            },
+                            {
+                                id: 'show-traits',
+                                active: true,
+                                command: 'show-traits',
+                                togglable: false,
                             }
                         ]
                     }
@@ -83,7 +89,11 @@ export class SoliasGrapesJS {
             styleManager: {
                 appendTo: '#style-palette',
                 sectors: SOLIAS_STYLE_SELECTORS
-            }
+            },
+            // Triats Manager
+            traitManager: {
+                appendTo: '#traits-palette',
+            },
         });
 
         /* Load Panels */
@@ -127,12 +137,12 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('show-blocks', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#blocks-palette') },
-    
-            run(editor, sender) {
+
+            run(editor) {
                 const elmt = this.getLayersEl(this.getRowEl(editor));
                 elmt.style.display = 'block';
             },
-            stop(editor, sender) {
+            stop(editor) {
                 const elmt = this.getLayersEl(this.getRowEl(editor));
                 elmt.style.display = 'none';
             },
@@ -140,12 +150,12 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('show-layers', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#layers-palette') },
-    
-            run(editor, sender) {
+
+            run(editor) {
                 const lmEl = this.getLayersEl(this.getRowEl(editor));
                 lmEl.style.display = 'block';
             },
-            stop(editor, sender) {
+            stop(editor) {
                 const lmEl = this.getLayersEl(this.getRowEl(editor));
                 lmEl.style.display = 'none';
             },
@@ -153,14 +163,27 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('show-styles', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getStyleEl(row: HTMLDivElement) { return row.querySelector('#style-palette') },
-    
-            run(editor, sender) {
+
+            run(editor) {
                 const smEl = this.getStyleEl(this.getRowEl(editor));
                 smEl.style.display = 'block';
             },
-            stop(editor, sender) {
+            stop(editor) {
                 const smEl = this.getStyleEl(this.getRowEl(editor));
                 smEl.style.display = 'none';
+            },
+        });
+        this.editor.Commands.add('show-traits', {
+            getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
+            getLayersEl(row: HTMLDivElement) { return row.querySelector('#traits-palette') },
+
+            run(editor) {
+                const elmt = this.getLayersEl(this.getRowEl(editor));
+                elmt.style.display = 'block';
+            },
+            stop(editor) {
+                const elmt = this.getLayersEl(this.getRowEl(editor));
+                elmt.style.display = 'none';
             },
         });
     }
