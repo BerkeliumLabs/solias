@@ -159,7 +159,7 @@ export class SoliasGrapesJS {
                     active: true,
                     command: 'show-styles',
                     className: 'material-icons',
-                    label: 'format_color_fill',
+                    label: 'brush',
                     togglable: false,
                 },
                 {
