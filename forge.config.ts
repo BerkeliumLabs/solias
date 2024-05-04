@@ -47,6 +47,18 @@ const config: ForgeConfig = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'BerkeliumLabs',
+          name: 'solias'
+        },
+        prerelease: true
+      }
+    }
+  ]
 };
 
 export default config;
