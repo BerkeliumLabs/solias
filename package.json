@@ -1,7 +1,7 @@
 {
   "name": "solias",
   "productName": "solias",
-  "version": "1.0.0",
+  "version": "0.0.0-alpha.1",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-vite": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
