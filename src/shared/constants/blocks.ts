@@ -3,12 +3,20 @@ export const SOLIAS_BLOCKS = [
         id: 'button', // id is mandatory
         label: 'Button', // You can use HTML/SVG inside labels
         attributes: { class: 'solias-btn' },
-        content: `<button>Button</button>`
+        content: `<button class="btn">Button</button>`,
+        category: 'Form Elements'
     },
     {
-        id: 'input-text',
-        label: 'Text Input',
-        content: '<input type="text" />',
+        id: 'input',
+        label: 'Input',
+        content: '<input class="form-control" />',
+        category: 'Form Elements'
+    },
+    {
+        id: 'textrea',
+        label: 'Textarea',
+        content: '<textarea class="form-control"></textarea>',
+        category: 'Form Elements'
     },
     {
         id: 'image',
@@ -21,5 +29,6 @@ export const SOLIAS_BLOCKS = [
         // This triggers `active` event on dropped components and the `image`
         // reacts by opening the AssetManager
         activate: true,
+        category: 'Media'
     }
 ];
