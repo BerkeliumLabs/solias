@@ -76,6 +76,16 @@ export class SoliasGrapesJS {
                     }
                 ]
             },
+            // Canvas settings
+            canvas: {
+                styles: [
+                    'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap',
+                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'
+                ],
+                scripts: [
+                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+                ]
+            }
         });
 
         /* Load Panels */
@@ -234,5 +244,99 @@ export class SoliasGrapesJS {
         });
 
         this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
+
+        /* Add Traits to components */
+        // Button Element
+        this.editor.Components.addType('button', {
+            isComponent: el => el.tagName === 'BUTTON',
+            model: {
+                defaults: {
+                    traits: [
+                        'id',
+                        'title',
+                        {
+                            type: 'select',
+                            name: 'type',
+                            label: 'Type',
+                            options: [
+                                { id: 'button', label: 'Button' },
+                                { id: 'submit', label: 'Submit' },
+                            ]
+                        },
+                        {
+                            type: 'select',
+                            name: 'class',
+                            label: 'Varient',
+                            options: [
+                                { id: 'btn btn-primary', label: 'Primary' },
+                                { id: 'btn btn-secondary', label: 'Secondary' },
+                                { id: 'btn btn-success', label: 'Success' },
+                                { id: 'btn btn-danger', label: 'Danger' },
+                                { id: 'btn btn-warning', label: 'Warning' },
+                                { id: 'btn btn-info', label: 'Info' },
+                                { id: 'btn btn-light', label: 'Light' },
+                                { id: 'btn btn-dark', label: 'Dark' },
+                                { id: 'btn btn-link', label: 'Link' }
+                            ]
+                        },
+                    ],
+                    attributes: { type: 'button' },
+                },
+            },
+        });
+        // Input Element
+        this.editor.Components.addType('input', {
+            isComponent: el => el.tagName === 'INPUT',
+            model: {
+                defaults: {
+                    traits: [
+                        // Strings are automatically converted to text types
+                        'name', // Same as: { type: 'text', name: 'name' }
+                        'placeholder',
+                        {
+                            type: 'select', // Type of the trait
+                            name: 'type', // (required) The name of the attribute/property to use on component
+                            label: 'Type', // The label you will see in Settings
+                            options: [
+                                { id: 'text', label: 'Text' },
+                                { id: 'email', label: 'Email' },
+                                { id: 'password', label: 'Password' },
+                                { id: 'number', label: 'Number' },
+                            ]
+                        },
+                        {
+                            type: 'checkbox',
+                            name: 'required',
+                        }
+                    ],
+                    // As by default, traits are bound to attributes, so to define
+                    // their initial value we can use attributes
+                    attributes: { type: 'text' },
+                },
+            },
+        });
+        // Textarea
+        this.editor.Components.addType('textarea', {
+            isComponent: el => el.tagName === 'TEXTAREA',
+            model: {
+                defaults: {
+                    traits: [
+                        'name',
+                        'placeholder',
+                        {
+                            type: 'number',
+                            name: 'cols',
+                            label: 'Columns'
+                        },
+                        {
+                            type: 'number',
+                            name: 'rows',
+                            label: 'Rows'
+                        }
+                    ],
+                },
+            },
+        });
+
     }
 }
