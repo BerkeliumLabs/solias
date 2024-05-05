@@ -1,27 +1,40 @@
 export const SOLIAS_STYLE_SELECTORS = [
     {
         name: 'Dimension',
-        open: false,
+        open: true,
         // Use built-in properties
-        buildProps: ['width', 'min-height', 'padding'],
-        // Use `properties` to define/override single property
-        properties: [
-            {
-                // Type of the input,
-                // options: integer | radio | select | color | slider | file | composite | stack
-                type: 'integer',
-                name: 'The width', // Label for the property
-                property: 'width', // CSS property (if buildProps contains it will be extended)
-                units: ['px', '%'], // Units, available only for 'integer' types
-                defaults: 'auto', // Default value
-                min: 0, // Min value, available only for 'integer' types
-            }
-        ]
+        buildProps: ['width', 'height', 'min-width', 'min-height'],
+    },
+    {
+        name: 'Spacing',
+        open: false,
+        buildProps: ['padding', 'margin'],
+    },
+    {
+        name: 'Typography',
+        open: false,
+        buildProps: [
+            'font-family',
+            'font-size',
+            'font-weight',
+            'letter-spacing',
+            'text-align',
+        ],
+    },
+    {
+        name: 'Colors',
+        open: false,
+        buildProps: ['background-color', 'color'],
+    },
+    {
+        name: 'Borders',
+        open: false,
+        buildProps: ['border', 'border-radius'],
     },
     {
         name: 'Extra',
         open: false,
-        buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+        buildProps: ['box-shadow', 'custom-prop'],
         properties: [
             {
                 id: 'custom-prop',
