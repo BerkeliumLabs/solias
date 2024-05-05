@@ -1,17 +1,16 @@
 export const SOLIAS_BLOCKS = [
     {
-        id: 'section', // id is mandatory
-        label: '<b>Section</b>', // You can use HTML/SVG inside labels
-        attributes: { class: 'gjs-block-section' },
-        content: `<section>
-      <h1>This is a simple title</h1>
-      <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-    </section>`,
-    }, {
-        id: 'text',
-        label: 'Text',
-        content: '<div data-gjs-type="text">Insert your text here</div>',
-    }, {
+        id: 'button', // id is mandatory
+        label: 'Button', // You can use HTML/SVG inside labels
+        attributes: { class: 'solias-btn' },
+        content: `<button>Button</button>`
+    },
+    {
+        id: 'input-text',
+        label: 'Text Input',
+        content: '<input type="text" />',
+    },
+    {
         id: 'image',
         label: 'Image',
         // Select the component once it's dropped
