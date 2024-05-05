@@ -76,6 +76,12 @@ export class SoliasGrapesJS {
                     }
                 ]
             },
+            // Canvas settings
+            canvas: {
+                styles: [
+                    'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap'
+                ]
+            }
         });
 
         /* Load Panels */
@@ -234,5 +240,57 @@ export class SoliasGrapesJS {
         });
 
         this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
+
+        /* Add Traits to components */
+        // Input Element
+        this.editor.Components.addType('button', {
+            isComponent: el => el.tagName === 'BUTTON',
+            model: {
+                defaults: {
+                    traits: [
+                        'id',
+                        'title',
+                        {
+                            type: 'select',
+                            name: 'type',
+                            label: 'Type',
+                            options: [
+                                { id: 'button', label: 'Button' },
+                                { id: 'submit', label: 'Submit' },
+                            ]
+                        },
+                    ],
+                    attributes: { type: 'button' },
+                },
+            },
+        });
+        this.editor.Components.addType('input', {
+            isComponent: el => el.tagName === 'INPUT',
+            model: {
+                defaults: {
+                    traits: [
+                        // Strings are automatically converted to text types
+                        'name', // Same as: { type: 'text', name: 'name' }
+                        'placeholder',
+                        {
+                            type: 'select', // Type of the trait
+                            name: 'type', // (required) The name of the attribute/property to use on component
+                            label: 'Type', // The label you will see in Settings
+                            options: [
+                                { id: 'text', label: 'Text' },
+                                { id: 'email', label: 'Email' },
+                                { id: 'password', label: 'Password' },
+                                { id: 'number', label: 'Number' },
+                            ]
+                        }, {
+                            type: 'checkbox',
+                            name: 'required',
+                        }],
+                    // As by default, traits are bound to attributes, so to define
+                    // their initial value we can use attributes
+                    attributes: { type: 'text' },
+                },
+            },
+        });
     }
 }
