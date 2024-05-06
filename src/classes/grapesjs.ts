@@ -302,12 +302,13 @@ export class SoliasGrapesJS {
                                 { id: 'email', label: 'Email' },
                                 { id: 'password', label: 'Password' },
                                 { id: 'number', label: 'Number' },
+                                { id: 'color', label: 'Color' },
+                                { id: 'date', label: 'Date' },
+                                { id: 'time', label: 'Time' },
+                                { id: 'tel', label: 'Telephone' },
+                                { id: 'file', label: 'File' },
                             ]
                         },
-                        {
-                            type: 'checkbox',
-                            name: 'required',
-                        }
                     ],
                     // As by default, traits are bound to attributes, so to define
                     // their initial value we can use attributes
@@ -333,6 +334,30 @@ export class SoliasGrapesJS {
                             name: 'rows',
                             label: 'Rows'
                         }
+                    ],
+                },
+            },
+        });
+        // Headings
+        this.editor.Components.addType('headings', {
+            isComponent: el => el.tagName.startsWith('H') && Number.parseInt(el.tagName.slice(1)) <= 6,
+            model: {
+                defaults: {
+                    traits: [
+                        {
+                            type: 'select',
+                            options: [
+                                { id: 'h1', value: 'h1', name: 'Heading 1' },
+                                { id: 'h2', value: 'h2', name: 'Heading 2' },
+                                { id: 'h3', value: 'h3', name: 'Heading 3' },
+                                { id: 'h4', value: 'h4', name: 'Heading 4' },
+                                { id: 'h5', value: 'h5', name: 'Heading 5' },
+                                { id: 'h6', value: 'h6', name: 'Heading 6' },
+                            ],
+                            label: 'Size',
+                            name: 'tagName',
+                            changeProp: true,
+                        },
                     ],
                 },
             },

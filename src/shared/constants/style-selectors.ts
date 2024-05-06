@@ -34,19 +34,19 @@ export const SOLIAS_STYLE_SELECTORS = [
     {
         name: 'Extra',
         open: false,
-        buildProps: ['box-shadow', 'custom-prop'],
+        buildProps: ['display-prop'],
         properties: [
             {
-                id: 'custom-prop',
-                name: 'Custom Label',
-                property: 'font-size',
+                id: 'display-prop',
+                name: 'Display',
+                property: 'display',
                 type: 'select',
-                defaults: '32px',
-                // List of options, available only for 'select' and 'radio'  types
+                defaults: 'block',
                 options: [
-                    { id: "1", value: '12px', name: 'Tiny' },
-                    { id: "1", value: '18px', name: 'Medium' },
-                    { id: "1", value: '32px', name: 'Big' },
+                    { id: "1", value: 'block', name: 'block' },
+                    { id: "1", value: 'inline', name: 'inline' },
+                    { id: "1", value: 'inline-block', name: 'inline-block' },
+                    { id: "1", value: 'none', name: 'none' },
                 ],
             }
         ]
