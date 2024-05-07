@@ -14,7 +14,7 @@ export const SOLIAS_BLOCKS = [
     },
     {
         id: 'p',
-        label: '<paragraph>',
+        label: '<p>',
         content: '<p></p>',
         category: 'Content'
     },
@@ -26,7 +26,7 @@ export const SOLIAS_BLOCKS = [
     },
     {
         id: 'br',
-        label: 'Break',
+        label: '<br>',
         content: '<br></br>',
         category: 'Content'
     },
@@ -159,13 +159,13 @@ export const SOLIAS_BLOCKS = [
     {
         id: 'ol',
         label: '<ol>',
-        content: '<ol></ol>',
+        content: '<ol>lorem ipsum</ol>',
         category: 'Lists'
     },
     {
         id: 'ul',
         label: '<ul>',
-        content: '<ul></ul>',
+        content: '<ul>lorem ipsum</ul>',
         category: 'Lists'
     },
     // Media elements
