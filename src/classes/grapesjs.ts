@@ -261,22 +261,7 @@ export class SoliasGrapesJS {
                             options: [
                                 { id: 'button', label: 'Button' },
                                 { id: 'submit', label: 'Submit' },
-                            ]
-                        },
-                        {
-                            type: 'select',
-                            name: 'class',
-                            label: 'Varient',
-                            options: [
-                                { id: 'btn btn-primary', label: 'Primary' },
-                                { id: 'btn btn-secondary', label: 'Secondary' },
-                                { id: 'btn btn-success', label: 'Success' },
-                                { id: 'btn btn-danger', label: 'Danger' },
-                                { id: 'btn btn-warning', label: 'Warning' },
-                                { id: 'btn btn-info', label: 'Info' },
-                                { id: 'btn btn-light', label: 'Light' },
-                                { id: 'btn btn-dark', label: 'Dark' },
-                                { id: 'btn btn-link', label: 'Link' }
+                                { id: 'reset', label: 'Reset' },
                             ]
                         },
                     ],
@@ -300,13 +285,21 @@ export class SoliasGrapesJS {
                             options: [
                                 { id: 'text', label: 'Text' },
                                 { id: 'email', label: 'Email' },
+                                { id: 'checkbox', label: 'Checkbox' },
+                                { id: 'radio', label: 'Radio' },
+                                { id: 'range', label: 'Range' },
                                 { id: 'password', label: 'Password' },
                                 { id: 'number', label: 'Number' },
                                 { id: 'color', label: 'Color' },
                                 { id: 'date', label: 'Date' },
                                 { id: 'time', label: 'Time' },
+                                { id: 'datetime-local', label: 'Date-time Local' },
                                 { id: 'tel', label: 'Telephone' },
                                 { id: 'file', label: 'File' },
+                                { id: 'url', label: 'URL' },
+                                { id: 'search', label: 'Search' },
+                                { id: 'month', label: 'Month' },
+                                { id: 'week', label: 'Week' },
                             ]
                         },
                     ],
@@ -362,6 +355,29 @@ export class SoliasGrapesJS {
                 },
             },
         });
-
+        // Anchor tag
+        this.editor.Components.addType('links', {
+            isComponent: el => el.tagName === 'A',
+            model: {
+                defaults: {
+                    traits: [
+                        'href',
+                        {
+                            type: 'select',
+                            options: [
+                                { id: '_self', value: '_self', name: 'Self' },
+                                { id: '_blank', value: '_blank', name: 'Blank' },
+                                { id: '_parent', value: '_parent', name: 'Parent' },
+                                { id: '_top', value: '_top', name: 'Top' },
+                                { id: '_unfencedTop', value: '_unfencedTop', name: 'Unfenced Top' },
+                            ],
+                            label: 'Target',
+                            name: 'target',
+                        },
+                        'download'
+                    ],
+                },
+            },
+        });
     }
 }
