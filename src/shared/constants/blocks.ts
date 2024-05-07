@@ -105,6 +105,12 @@ export const SOLIAS_BLOCKS = [
         category: 'Form Elements'
     },
     {
+        id: 'range',
+        label: 'Range',
+        content: '<input type="range" class="form-range" />',
+        category: 'Form Elements'
+    },
+    {
         id: 'fieldset',
         label: 'Fieldset',
         content: '<fieldset><legend>Legend</legend></fieldset>',
@@ -121,6 +127,14 @@ export const SOLIAS_BLOCKS = [
         content: { type: 'image' },
         // This triggers `active` event on dropped components and the `image`
         // reacts by opening the AssetManager
+        activate: true,
+        category: 'Media'
+    },
+    {
+        id: 'video',
+        label: 'Video',
+        select: true,
+        content: { type: 'video' },
         activate: true,
         category: 'Media'
     }
