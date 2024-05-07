@@ -59,6 +59,7 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 42px);
 }
 .solias-designer__canvas {
   flex-grow: 1;

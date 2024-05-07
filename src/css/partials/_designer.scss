@@ -28,6 +28,7 @@
         overflow-y: auto;
         display: flex;
         flex-direction: column;
+        height: calc(100vh - 42px);
     }
     &__canvas {
         flex-grow: 1;
