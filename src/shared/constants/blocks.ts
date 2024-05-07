@@ -1,92 +1,82 @@
 export const SOLIAS_BLOCKS = [
-    // Basic elements
+    // Content
     {
         id: 'div',
-        label: 'Div',
+        label: '<div>',
         content: '<div></div>',
-        category: 'Basic'
+        category: 'Content'
     },
     {
         id: 'span',
-        label: 'Span',
+        label: '<span>',
         content: '<span></span>',
-        category: 'Basic'
+        category: 'Content'
     },
     {
         id: 'p',
-        label: 'Paragraph',
+        label: '<paragraph>',
         content: '<p></p>',
-        category: 'Basic'
+        category: 'Content'
     },
     {
         id: 'h1',
-        label: 'Headings',
+        label: '<headings>',
         content: '<h1>Title</h1>',
-        category: 'Basic'
+        category: 'Content'
     },
-    // Form Elements
+    {
+        id: 'br',
+        label: 'Break',
+        content: '<br></br>',
+        category: 'Content'
+    },
+    {
+        id: 'a',
+        label: '<a>',
+        content: '<a></a>',
+        category: 'Content'
+    },
+    // Forms
     {
         id: 'form',
-        label: 'Form',
+        label: '<form>',
         content: '<form></form>',
-        category: 'Form Elements'
+        category: 'Forms'
     },
     {
         id: 'button', // id is mandatory
-        label: 'Button', // You can use HTML/SVG inside labels
+        label: '<button>', // You can use HTML/SVG inside labels
         attributes: { class: 'solias-btn' },
-        content: `<button class="btn">Button</button>`,
-        category: 'Form Elements'
+        content: `<button>Button</button>`,
+        category: 'Forms'
     },
     {
         id: 'input',
-        label: 'Input',
-        content: '<input class="form-control" />',
-        category: 'Form Elements'
-    },
-    {
-        id: 'input-checkbox',
-        label: 'Checkbox',
-        content: `<div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="ch-1">
-        <label class="form-check-label" for="ch-1">
-          Checkbox
-        </label>
-      </div>`,
-        category: 'Form Elements'
-    },
-    {
-        id: 'input-radio',
-        label: 'Radio',
-        content: `<div class="form-check">
-        <input class="form-check-input" type="radio" id="radio-1">
-        <label class="form-check-label" for="radio-1">
-          Radio
-        </label>
-      </div>`,
-        category: 'Form Elements'
+        label: '<input>',
+        content: '<input />',
+        category: 'Forms'
     },
     {
         id: 'label',
-        label: 'Label',
+        label: '<label>',
         content: '<label>Label</label>',
-        category: 'Form Elements'
+        category: 'Forms'
     },
     {
         id: 'select',
-        label: 'Select',
-        content: '<select class="form-control"></select>',
-        category: 'Form Elements'
+        label: '<select>',
+        content: '<select></select>',
+        category: 'Forms'
     },
     {
         id: 'datalist',
-        label: 'Data List',
+        label: '<datalist>',
         content: '<datalist></datalist>',
-        category: 'Form Elements'
+        category: 'Forms'
     },
     {
         id: 'option',
-        label: 'Options',
+        label: '<option>',
         content: {
             type: 'text',
             tagName: 'option',
@@ -96,30 +86,92 @@ export const SOLIAS_BLOCKS = [
                 label: 'Solias'
             }
         },
-        category: 'Form Elements',
+        category: 'Forms',
     },
     {
         id: 'textrea',
-        label: 'Textarea',
+        label: '<textarea>',
         content: '<textarea class="form-control"></textarea>',
-        category: 'Form Elements'
-    },
-    {
-        id: 'range',
-        label: 'Range',
-        content: '<input type="range" class="form-range" />',
-        category: 'Form Elements'
+        category: 'Forms'
     },
     {
         id: 'fieldset',
-        label: 'Fieldset',
-        content: '<fieldset><legend>Legend</legend></fieldset>',
-        category: 'Form Elements'
+        label: '<fieldset>',
+        content: '<fieldset></fieldset>',
+        category: 'Forms'
+    },
+    {
+        id: 'legend',
+        label: '<legend>',
+        content: '<legend>Legend</legend>',
+        category: 'Forms'
+    },
+    // Document Structure
+    {
+        id: 'header',
+        label: '<header>',
+        content: '<header></header>',
+        category: 'Structure'
+    },
+    {
+        id: 'nav',
+        label: '<nav>',
+        content: '<nav></nav>',
+        category: 'Structure'
+    },
+    {
+        id: 'main',
+        label: '<main>',
+        content: '<main></main>',
+        category: 'Structure'
+    },
+    {
+        id: 'section',
+        label: '<section>',
+        content: '<section></section>',
+        category: 'Structure'
+    },
+    {
+        id: 'article',
+        label: '<article>',
+        content: '<article></article>',
+        category: 'Structure'
+    },
+    {
+        id: 'aside',
+        label: '<aside>',
+        content: '<aside></aside>',
+        category: 'Structure'
+    },
+    {
+        id: 'footer',
+        label: '<footer>',
+        content: '<footer></footer>',
+        category: 'Structure'
+    },
+    // Lists
+    {
+        id: 'ul',
+        label: '<ul>',
+        content: '<ul></ul>',
+        category: 'Lists'
+    },
+    {
+        id: 'ol',
+        label: '<ol>',
+        content: '<ol></ol>',
+        category: 'Lists'
+    },
+    {
+        id: 'ul',
+        label: '<ul>',
+        content: '<ul></ul>',
+        category: 'Lists'
     },
     // Media elements
     {
         id: 'image',
-        label: 'Image',
+        label: '<image>',
         // Select the component once it's dropped
         select: true,
         // You can pass components as a JSON instead of a simple HTML string,
@@ -132,10 +184,123 @@ export const SOLIAS_BLOCKS = [
     },
     {
         id: 'video',
-        label: 'Video',
+        label: '<video>',
         select: true,
         content: { type: 'video' },
         activate: true,
         category: 'Media'
-    }
+    },
+    {
+        id: 'audio',
+        label: 'audio',
+        select: true,
+        content: '<audio></audio>',
+        activate: true,
+        category: 'Media'
+    },
+    // Table
+    {
+        id: 'table',
+        label: '<table>',
+        content: '<table></table>',
+        category: 'Table'
+    },
+    {
+        id: 'tr',
+        label: '<tr>',
+        content: '<tr></tr>',
+        category: 'Table'
+    },
+    {
+        id: 'th',
+        label: '<th>',
+        content: '<th></th>',
+        category: 'Table'
+    },
+    {
+        id: 'tr',
+        label: '<td>',
+        content: '<td></td>',
+        category: 'Table'
+    },
+    // Text Formatting
+    {
+        id: 'strong',
+        label: '<strong>',
+        content: '<strong>lorem ipsum</strong>',
+        category: 'Text Formatting'
+    },
+    {
+        id: 'em',
+        label: '<em>',
+        content: '<em>lorem ipsum</em>',
+        category: 'Text Formatting'
+    },
+    {
+        id: 'u',
+        label: '<u>',
+        content: '<u>lorem ipsum</u>',
+        category: 'Text Formatting'
+    },
+    {
+        id: 'sup',
+        label: '<sup>',
+        content: '<sup>lorem ipsum</sup>',
+        category: 'Text Formatting'
+    },
+    {
+        id: 'sub',
+        label: '<sub>',
+        content: '<sub>lorem ipsum</sub>',
+        category: 'Text Formatting'
+    },
+    {
+        id: 'strike',
+        label: '<strike>',
+        content: '<strike>lorem ipsum</strike>',
+        category: 'Text Formatting'
+    },
+    {
+        id: 'del',
+        label: '<del>',
+        content: '<del>lorem ipsum</del>',
+        category: 'Text Formatting'
+    },
+    // Advanced Content
+    {
+        id: 'pre',
+        label: '<pre>',
+        content: '<pre></pre>',
+        category: 'Advanced Content'
+    },
+    {
+        id: 'code',
+        label: '<code>',
+        content: '<code></code>',
+        category: 'Advanced Content'
+    },
+    {
+        id: 'samp',
+        label: '<samp>',
+        content: '<samp></samp>',
+        category: 'Advanced Content'
+    },
+    {
+        id: 'kbd',
+        label: '<kbd>',
+        content: '<kbd></kbd>',
+        category: 'Advanced Content'
+    },
+    {
+        id: 'mark',
+        label: '<mark>',
+        content: '<mark></mark>',
+        category: 'Advanced Content'
+    },
+    {
+        id: 'var',
+        label: '<var>',
+        content: '<var></var>',
+        category: 'Advanced Content'
+    },
 ];
