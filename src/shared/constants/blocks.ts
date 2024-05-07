@@ -218,7 +218,7 @@ export const SOLIAS_BLOCKS = [
         category: 'Table'
     },
     {
-        id: 'tr',
+        id: 'td',
         label: '&lt;td&gt;',
         content: '<td></td>',
         category: 'Table'
