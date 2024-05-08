@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import path from 'path';
+import { SOLIAS_MENU_ITEMS } from './utils/menu';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -24,6 +25,10 @@ const createWindow = () => {
   } else {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
+
+  // Set min menu
+  const mainMenu = Menu.buildFromTemplate(SOLIAS_MENU_ITEMS)
+  Menu.setApplicationMenu(mainMenu);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
