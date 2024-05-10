@@ -1,6 +1,9 @@
 import grapesjs, { Editor } from "grapesjs";
 import { SOLIAS_BLOCKS } from "../shared/constants/blocks";
 import { SOLIAS_STYLE_SELECTORS } from "../shared/constants/style-selectors";
+import { ipcRenderer } from 'electron';
+import * as fs from 'fs';
+import { soliasDataValidations } from "../utils/validator";
 
 export class SoliasGrapesJS {
     public editor: Editor;
@@ -103,13 +106,15 @@ export class SoliasGrapesJS {
                     className: 'material-icons',
                     label: 'border_style',
                     command: 'sw-visibility', // Built-in command
-                }, {
+                },
+                {
                     id: 'export',
                     className: 'material-icons',
                     label: 'code',
                     command: 'export-template',
                     context: 'export-template', // For grouping context of buttons from the same panel
-                }, {
+                },
+                {
                     id: 'show-json',
                     className: 'material-icons',
                     label: 'data_object',
@@ -121,6 +126,12 @@ export class SoliasGrapesJS {
                     </textarea>`)
                             .open();
                     }).bind(this),
+                },
+                {
+                    id: 'save-data',
+                    className: 'material-icons',
+                    label: 'save',
+                    command: 'save-data',
                 }
             ],
         });
@@ -242,6 +253,12 @@ export class SoliasGrapesJS {
         this.editor.Commands.add('set-device-mobile', {
             run: editor => editor.setDevice('Mobile')
         });
+        this.editor.Commands.add('save-data', {
+            run: (editor) => {
+                const jsonData = JSON.stringify(editor.getComponents());
+                ipcRenderer.invoke('savefile', jsonData);
+            }
+        });
 
         this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
 
@@ -333,7 +350,7 @@ export class SoliasGrapesJS {
         });
         // Headings
         this.editor.Components.addType('headings', {
-            isComponent: el => el.tagName.startsWith('H') && Number.parseInt(el.tagName.slice(1)) <= 6,
+            isComponent: el => el.tagName?.startsWith('H') && Number.parseInt(el.tagName.slice(1)) <= 6,
             model: {
                 defaults: {
                     traits: [
@@ -378,6 +395,22 @@ export class SoliasGrapesJS {
                     ],
                 },
             },
+        });
+
+        ipcRenderer.on('openfile', ((_, args) => {
+            if (!args.canceled) {
+                fs.readFile(args.filePaths[0], 'utf8', (err, data) => {
+                    if(soliasDataValidations.isValidJSON(data)) {
+                        this.editor.setComponents(JSON.parse(data));
+                    } else {
+                        this.editor.setComponents(data);
+                    }
+                });
+            }
+        }));
+        ipcRenderer.on('savefile-from-menu', () => {
+            const jsonData = JSON.stringify(this.editor.getComponents());
+            ipcRenderer.invoke('savefile', jsonData);
         });
     }
 }
