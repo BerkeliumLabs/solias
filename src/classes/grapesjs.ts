@@ -314,6 +314,9 @@ export class SoliasGrapesJS {
             isComponent: el => el.tagName === 'INPUT',
             model: {
                 defaults: {
+                    tagName: 'input',
+                    // draggable: 'form, form *', // Can be dropped only inside `form` elements
+                    droppable: false, // Can't drop other elements inside
                     traits: [
                         // Strings are automatically converted to text types
                         'name', // Same as: { type: 'text', name: 'name' }
@@ -372,7 +375,7 @@ export class SoliasGrapesJS {
             },
         });
         // Headings
-        this.editor.Components.addType('headings', {
+        this.editor.Components.addType('text', {
             isComponent: el => el.tagName?.startsWith('H') && Number.parseInt(el.tagName.slice(1)) <= 6,
             model: {
                 defaults: {
