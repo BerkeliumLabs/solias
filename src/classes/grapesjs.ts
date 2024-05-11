@@ -1,7 +1,7 @@
 import grapesjs, { Editor } from "grapesjs";
 import { SOLIAS_BLOCKS } from "../shared/constants/blocks";
 import { SOLIAS_STYLE_SELECTORS } from "../shared/constants/style-selectors";
-import { SaveDialogReturnValue, ipcRenderer } from 'electron';
+import { OpenDialogReturnValue, SaveDialogReturnValue, ipcRenderer } from 'electron';
 import * as fs from 'fs';
 import { soliasDataValidations } from "../utils/validator";
 import { BASE_HTML_TEMPLATE } from "../shared/constants/base-html";
@@ -10,6 +10,7 @@ import { ISoliasFileData } from "../shared/interfaces/file-data.interface";
 export class SoliasGrapesJS {
     public editor: Editor;
     private savedFilePath: string;
+    private savedProjectPath: string;
 
     init(): void {
         /* Initialize GrapeJS Editor */
@@ -425,35 +426,53 @@ export class SoliasGrapesJS {
 
         /* IPC Renderer Events */
         // Open file dialog event
-        ipcRenderer.on('openfile', ((_, args) => {
+        ipcRenderer.on('openfile', ((_, args: OpenDialogReturnValue) => {
             if (!args.canceled) {
                 fs.readFile(args.filePaths[0], 'utf8', (err, data) => {
                     if (soliasDataValidations.isValidJSON(data)) {
                         this.editor.setComponents(JSON.parse(data));
+                        this.savedProjectPath = args.filePaths[0];
                     } else {
                         this.editor.setComponents(data);
+                        this.savedFilePath = args.filePaths[0];
                     }
                 });
             }
         }));
         // Save file dialog event
-        ipcRenderer.on('savefile-from-menu', () => {
+        ipcRenderer.on('savefile-from-menu', async () => {
             const jsonData: ISoliasFileData = {
                 data: JSON.stringify(this.editor.getComponents()),
                 fileType: 'json'
             };
-            ipcRenderer.invoke('savefile', jsonData);
+            if (this.savedProjectPath) {
+                jsonData.firstSave = false;
+                jsonData.savedPath = this.savedProjectPath;
+                ipcRenderer.invoke('savefile', jsonData);
+                if (this.savedFilePath) {
+                    this.exportToHTML(false);
+                }
+            } else {
+                jsonData.firstSave = true;
+                const result: SaveDialogReturnValue = await ipcRenderer.invoke('savefile', jsonData);
+                if (!result.canceled) {
+                    this.savedProjectPath = result.filePath;
+                }
+            }
         });
         // Export HTML
         ipcRenderer.on('export-from-menu', () => {
-            this.exportToHTML();
+            this.exportToHTML(true);
         });
     }
 
-    private async exportToHTML() {
+    // Export to HTML
+    private async exportToHTML(firstSave: boolean) {
         const renderedHTML: ISoliasFileData = {
             data: BASE_HTML_TEMPLATE.start + this.editor.getHtml() + BASE_HTML_TEMPLATE.end,
-            fileType: 'html'
+            fileType: 'html',
+            firstSave: firstSave,
+            savedPath: this.savedFilePath
         };
         const result: SaveDialogReturnValue = await ipcRenderer.invoke('savefile', renderedHTML);
         if (!result.canceled) {
