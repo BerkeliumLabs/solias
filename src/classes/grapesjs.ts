@@ -88,10 +88,12 @@ export class SoliasGrapesJS {
         });
 
         /* Load Panels */
+        // Top panel
         this.editor.Panels.addPanel({
             id: 'panel-top',
             el: '#tool-bar',
         });
+        // Actions panel
         this.editor.Panels.addPanel({
             id: 'basic-actions',
             el: '#tool-actions',
@@ -125,6 +127,7 @@ export class SoliasGrapesJS {
                 }
             ],
         });
+        // Switch device viewport
         this.editor.Panels.addPanel({
             id: 'panel-devices',
             el: '#panel-devices',
@@ -145,6 +148,7 @@ export class SoliasGrapesJS {
                 }
             ],
         });
+        // Panel switcher
         this.editor.Panels.addPanel({
             id: 'panel-switcher',
             el: '#panel-switcher',
@@ -185,6 +189,7 @@ export class SoliasGrapesJS {
         });
 
         /* GrapeJS Commands */
+        // Show blocks
         this.editor.Commands.add('show-blocks', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#blocks-palette') },
@@ -198,6 +203,7 @@ export class SoliasGrapesJS {
                 elmt.style.display = 'none';
             },
         });
+        // Show layers
         this.editor.Commands.add('show-layers', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#layers-palette') },
@@ -211,6 +217,7 @@ export class SoliasGrapesJS {
                 lmEl.style.display = 'none';
             },
         });
+        // Show styles
         this.editor.Commands.add('show-styles', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getStyleEl(row: HTMLDivElement) { return row.querySelector('#style-palette') },
@@ -224,6 +231,7 @@ export class SoliasGrapesJS {
                 smEl.style.display = 'none';
             },
         });
+        // Show traits
         this.editor.Commands.add('show-traits', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#traits-palette') },
@@ -237,13 +245,15 @@ export class SoliasGrapesJS {
                 elmt.style.display = 'none';
             },
         });
+        // Set viewport to desktop
         this.editor.Commands.add('set-device-desktop', {
             run: editor => editor.setDevice('Desktop')
         });
+        // Set viewport to mobile
         this.editor.Commands.add('set-device-mobile', {
             run: editor => editor.setDevice('Mobile')
         });
-
+        // Change viewport trigger event
         this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
 
         /* Add Traits to components */
@@ -381,6 +391,8 @@ export class SoliasGrapesJS {
             },
         });
 
+        /* IPC Renderer Events */
+        // Open file dialog event
         ipcRenderer.on('openfile', ((_, args) => {
             if (!args.canceled) {
                 fs.readFile(args.filePaths[0], 'utf8', (err, data) => {
@@ -392,6 +404,7 @@ export class SoliasGrapesJS {
                 });
             }
         }));
+        // Save file dialog event
         ipcRenderer.on('savefile-from-menu', () => {
             const jsonData = JSON.stringify(this.editor.getComponents());
             ipcRenderer.invoke('savefile', jsonData);
