@@ -61,11 +61,20 @@ app.on('activate', () => {
   }
 });
 
+// Set notification App name
+if (process.platform === 'win32') {
+  app.setAppUserModelId(app.name);
+}
+
 // Solias additional functionality
 // Handle save function
-ipcMain.handle('savefile', async (_, fileData: ISoliasFileData): Promise<SaveDialogReturnValue> => {
+ipcMain.handle('savefile', async (_, fileData: ISoliasFileData): Promise<SaveDialogReturnValue | void> => {
   const fileService = new SoliasFileManager();
-  return await fileService.saveFile(fileData.data, fileData.fileType);
+  if (fileData.firstSave) {
+    return await fileService.saveFile(fileData.data, fileData.fileType);
+  } else {
+    await fileService.writeFile(fileData.savedPath, fileData.data);
+  }
 });
 // Handle preview
 ipcMain.handle('load-preview', (_, filePath: string) => {

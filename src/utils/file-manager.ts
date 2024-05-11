@@ -13,7 +13,7 @@ export class SoliasFileManager {
                 name: 'HTML Files',
                 extensions: ['html', 'json']
             }],
-            properties: ['openFile']
+            properties: ['openFile'],
         });
         return result;
     }
@@ -29,14 +29,25 @@ export class SoliasFileManager {
         });
 
         if (!result.canceled) {
-            try {
-                fs.writeFileSync(result.filePath, content);
-                this.notification.show({ title: 'File saved!', body: `File saved to ${result.filePath}` });
-            } catch (err) {
-                this.notification.show({ title: 'File saving error' ,body: err });
-            }
+            await this.writeFile(result.filePath, content);
         }
 
         return result;
+    }
+
+    // Update saved file
+    async writeFile(filePath: string, content: string): Promise<void> {
+        try {
+            await fs.writeFileSync(filePath, content);
+            this.notification.show({
+                title: 'File saved!',
+                body: `File saved to ${filePath}`
+            });
+        } catch (err) {
+            this.notification.show({
+                title: `File saving error ${filePath}:`,
+                body: err
+            });
+        }
     }
 }
