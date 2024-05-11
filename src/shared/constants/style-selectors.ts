@@ -41,12 +41,12 @@ export const SOLIAS_STYLE_SELECTORS = [
                 name: 'Display',
                 property: 'display',
                 type: 'select',
-                defaults: 'block',
+                defaults: 'inline',
                 options: [
-                    { id: "1", value: 'block', name: 'block' },
-                    { id: "1", value: 'inline', name: 'inline' },
-                    { id: "1", value: 'inline-block', name: 'inline-block' },
-                    { id: "1", value: 'none', name: 'none' },
+                    { id: "block", name: 'block' },
+                    { id: "inline", name: 'inline' },
+                    { id: "inline-block", name: 'inline-block' },
+                    { id: "none", name: 'none' },
                 ],
             }
         ]
