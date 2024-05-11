@@ -20,7 +20,7 @@ export const SOLIAS_BLOCKS = [
     },
     {
         id: 'h1',
-        label: '&lt;headings&gt;',
+        label: '&lt;h1&gt;',
         content: '<h1>Title</h1>',
         category: 'Content'
     },
