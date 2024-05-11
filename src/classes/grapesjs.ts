@@ -1,12 +1,15 @@
 import grapesjs, { Editor } from "grapesjs";
 import { SOLIAS_BLOCKS } from "../shared/constants/blocks";
 import { SOLIAS_STYLE_SELECTORS } from "../shared/constants/style-selectors";
-import { ipcRenderer } from 'electron';
+import { SaveDialogReturnValue, ipcRenderer } from 'electron';
 import * as fs from 'fs';
 import { soliasDataValidations } from "../utils/validator";
+import { BASE_HTML_TEMPLATE } from "../shared/constants/base-html";
+import { ISoliasFileData } from "../shared/interfaces/file-data.interface";
 
 export class SoliasGrapesJS {
     public editor: Editor;
+    private savedFilePath: string;
 
     init(): void {
         /* Initialize GrapeJS Editor */
@@ -83,19 +86,17 @@ export class SoliasGrapesJS {
             canvas: {
                 styles: [
                     'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap',
-                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'
-                ],
-                scripts: [
-                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
                 ]
             }
         });
 
         /* Load Panels */
+        // Top panel
         this.editor.Panels.addPanel({
             id: 'panel-top',
             el: '#tool-bar',
         });
+        // Actions panel
         this.editor.Panels.addPanel({
             id: 'basic-actions',
             el: '#tool-actions',
@@ -128,13 +129,20 @@ export class SoliasGrapesJS {
                     }).bind(this),
                 },
                 {
-                    id: 'save-data',
+                    id: 'clear',
                     className: 'material-icons',
-                    label: 'save',
-                    command: 'save-data',
+                    label: 'backspace',
+                    command: 'clear-html',
+                },
+                {
+                    id: 'preview',
+                    className: 'material-icons',
+                    label: 'preview',
+                    command: 'preview-window',
                 }
             ],
         });
+        // Switch device viewport
         this.editor.Panels.addPanel({
             id: 'panel-devices',
             el: '#panel-devices',
@@ -155,6 +163,7 @@ export class SoliasGrapesJS {
                 }
             ],
         });
+        // Panel switcher
         this.editor.Panels.addPanel({
             id: 'panel-switcher',
             el: '#panel-switcher',
@@ -195,6 +204,7 @@ export class SoliasGrapesJS {
         });
 
         /* GrapeJS Commands */
+        // Show blocks
         this.editor.Commands.add('show-blocks', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#blocks-palette') },
@@ -208,6 +218,7 @@ export class SoliasGrapesJS {
                 elmt.style.display = 'none';
             },
         });
+        // Show layers
         this.editor.Commands.add('show-layers', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#layers-palette') },
@@ -221,6 +232,7 @@ export class SoliasGrapesJS {
                 lmEl.style.display = 'none';
             },
         });
+        // Show styles
         this.editor.Commands.add('show-styles', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getStyleEl(row: HTMLDivElement) { return row.querySelector('#style-palette') },
@@ -234,6 +246,7 @@ export class SoliasGrapesJS {
                 smEl.style.display = 'none';
             },
         });
+        // Show traits
         this.editor.Commands.add('show-traits', {
             getRowEl(editor: Editor) { return editor.getContainer().closest('#solias-workspace'); },
             getLayersEl(row: HTMLDivElement) { return row.querySelector('#traits-palette') },
@@ -247,19 +260,29 @@ export class SoliasGrapesJS {
                 elmt.style.display = 'none';
             },
         });
+        // Clear designer
+        this.editor.Commands.add('clear-html', {
+            run: editor => editor.DomComponents.clear()
+        });
+        // Preview
+        this.editor.Commands.add('preview-window', {
+            run: () => {
+                if (this.savedFilePath) {
+                    ipcRenderer.invoke('load-preview', this.savedFilePath);
+                } else {
+                    alert('Project not saved. Export the project as HTML to preview.')
+                }
+            }
+        });
+        // Set viewport to desktop
         this.editor.Commands.add('set-device-desktop', {
             run: editor => editor.setDevice('Desktop')
         });
+        // Set viewport to mobile
         this.editor.Commands.add('set-device-mobile', {
             run: editor => editor.setDevice('Mobile')
         });
-        this.editor.Commands.add('save-data', {
-            run: (editor) => {
-                const jsonData = JSON.stringify(editor.getComponents());
-                ipcRenderer.invoke('savefile', jsonData);
-            }
-        });
-
+        // Change viewport trigger event
         this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
 
         /* Add Traits to components */
@@ -291,6 +314,9 @@ export class SoliasGrapesJS {
             isComponent: el => el.tagName === 'INPUT',
             model: {
                 defaults: {
+                    tagName: 'input',
+                    // draggable: 'form, form *', // Can be dropped only inside `form` elements
+                    droppable: false, // Can't drop other elements inside
                     traits: [
                         // Strings are automatically converted to text types
                         'name', // Same as: { type: 'text', name: 'name' }
@@ -349,7 +375,7 @@ export class SoliasGrapesJS {
             },
         });
         // Headings
-        this.editor.Components.addType('headings', {
+        this.editor.Components.addType('text', {
             isComponent: el => el.tagName?.startsWith('H') && Number.parseInt(el.tagName.slice(1)) <= 6,
             model: {
                 defaults: {
@@ -397,10 +423,12 @@ export class SoliasGrapesJS {
             },
         });
 
+        /* IPC Renderer Events */
+        // Open file dialog event
         ipcRenderer.on('openfile', ((_, args) => {
             if (!args.canceled) {
                 fs.readFile(args.filePaths[0], 'utf8', (err, data) => {
-                    if(soliasDataValidations.isValidJSON(data)) {
+                    if (soliasDataValidations.isValidJSON(data)) {
                         this.editor.setComponents(JSON.parse(data));
                     } else {
                         this.editor.setComponents(data);
@@ -408,9 +436,28 @@ export class SoliasGrapesJS {
                 });
             }
         }));
+        // Save file dialog event
         ipcRenderer.on('savefile-from-menu', () => {
-            const jsonData = JSON.stringify(this.editor.getComponents());
+            const jsonData: ISoliasFileData = {
+                data: JSON.stringify(this.editor.getComponents()),
+                fileType: 'json'
+            };
             ipcRenderer.invoke('savefile', jsonData);
         });
+        // Export HTML
+        ipcRenderer.on('export-from-menu', () => {
+            this.exportToHTML();
+        });
+    }
+
+    private async exportToHTML() {
+        const renderedHTML: ISoliasFileData = {
+            data: BASE_HTML_TEMPLATE.start + this.editor.getHtml() + BASE_HTML_TEMPLATE.end,
+            fileType: 'html'
+        };
+        const result: SaveDialogReturnValue = await ipcRenderer.invoke('savefile', renderedHTML);
+        if (!result.canceled) {
+            this.savedFilePath = result.filePath;
+        }
     }
 }

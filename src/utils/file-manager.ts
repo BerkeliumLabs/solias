@@ -1,4 +1,4 @@
-import { dialog } from "electron";
+import { OpenDialogReturnValue, SaveDialogReturnValue, dialog } from "electron";
 import * as fs from 'fs';
 import { SoliasNotifications } from "./notifications";
 
@@ -7,7 +7,7 @@ export class SoliasFileManager {
     notification = new SoliasNotifications();
 
     // Open File Dialog
-    async openFile() {
+    async openFile(): Promise<OpenDialogReturnValue> {
         const result = await dialog.showOpenDialog({
             filters: [{
                 name: 'HTML Files',
@@ -19,11 +19,11 @@ export class SoliasFileManager {
     }
 
     // Save file
-    async saveFile(content: string) {
+    async saveFile(content: string, fileType: string): Promise<SaveDialogReturnValue> {
         const result = await dialog.showSaveDialog({
             filters: [{
                 name: 'Solias Files',
-                extensions: ['json']
+                extensions: [fileType]
             }],
             properties: ['createDirectory']
         });
