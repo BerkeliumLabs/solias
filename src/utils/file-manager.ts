@@ -39,9 +39,15 @@ export class SoliasFileManager {
     async writeFile(filePath: string, content: string): Promise<void> {
         try {
             await fs.writeFileSync(filePath, content);
-            this.notification.show({ title: 'File saved!', body: `File saved to ${filePath}` });
+            this.notification.show({
+                title: 'File saved!',
+                body: `File saved to ${filePath}`
+            });
         } catch (err) {
-            this.notification.show({ title: `File saving error ${filePath}:` ,body: err });
+            this.notification.show({
+                title: `File saving error ${filePath}:`,
+                body: err
+            });
         }
     }
 }

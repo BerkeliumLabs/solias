@@ -61,6 +61,11 @@ app.on('activate', () => {
   }
 });
 
+// Set notification App name
+if (process.platform === 'win32') {
+  app.setAppUserModelId(app.name);
+}
+
 // Solias additional functionality
 // Handle save function
 ipcMain.handle('savefile', async (_, fileData: ISoliasFileData): Promise<SaveDialogReturnValue | void> => {
