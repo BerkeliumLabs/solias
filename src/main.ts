@@ -33,7 +33,7 @@ const createWindow = () => {
   Menu.setApplicationMenu(mainMenu);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // open maximized
   mainWindow.maximize();

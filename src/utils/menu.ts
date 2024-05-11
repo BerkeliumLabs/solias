@@ -42,10 +42,18 @@ export const SOLIAS_MENU_ITEMS: MenuItemConstructorOptions[] = [
         role: 'window',
         submenu: [
             {
-                role: 'minimize'
+                role: 'togglefullscreen',
+                accelerator: 'F11'
             },
             {
-                role: 'reload'
+                role: 'reload',
+                accelerator: 'CmdOrCtrl+R'
+            },
+            {
+                type: 'separator',
+            },
+            {
+                role: 'toggleDevTools'
             },
             {
                 role: 'close'
