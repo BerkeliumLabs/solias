@@ -83,10 +83,6 @@ export class SoliasGrapesJS {
             canvas: {
                 styles: [
                     'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap',
-                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'
-                ],
-                scripts: [
-                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
                 ]
             }
         });
@@ -126,12 +122,6 @@ export class SoliasGrapesJS {
                     </textarea>`)
                             .open();
                     }).bind(this),
-                },
-                {
-                    id: 'save-data',
-                    className: 'material-icons',
-                    label: 'save',
-                    command: 'save-data',
                 }
             ],
         });
@@ -252,12 +242,6 @@ export class SoliasGrapesJS {
         });
         this.editor.Commands.add('set-device-mobile', {
             run: editor => editor.setDevice('Mobile')
-        });
-        this.editor.Commands.add('save-data', {
-            run: (editor) => {
-                const jsonData = JSON.stringify(editor.getComponents());
-                ipcRenderer.invoke('savefile', jsonData);
-            }
         });
 
         this.editor.on('change:device', () => console.log('Current device: ', this.editor.getDevice()));
@@ -400,7 +384,7 @@ export class SoliasGrapesJS {
         ipcRenderer.on('openfile', ((_, args) => {
             if (!args.canceled) {
                 fs.readFile(args.filePaths[0], 'utf8', (err, data) => {
-                    if(soliasDataValidations.isValidJSON(data)) {
+                    if (soliasDataValidations.isValidJSON(data)) {
                         this.editor.setComponents(JSON.parse(data));
                     } else {
                         this.editor.setComponents(data);
