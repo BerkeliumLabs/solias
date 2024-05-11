@@ -1,7 +1,8 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, SaveDialogReturnValue, shell } from 'electron';
 import path from 'path';
 import { SOLIAS_MENU_ITEMS } from './utils/menu';
 import { SoliasFileManager } from './utils/file-manager';
+import { ISoliasFileData } from './shared/interfaces/file-data.interface';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -62,7 +63,11 @@ app.on('activate', () => {
 
 // Solias additional functionality
 // Handle save function
-ipcMain.handle('savefile', async (_, data: string) => {
+ipcMain.handle('savefile', async (_, fileData: ISoliasFileData): Promise<SaveDialogReturnValue> => {
   const fileService = new SoliasFileManager();
-  fileService.saveFile(data);
+  return await fileService.saveFile(fileData.data, fileData.fileType);
+});
+// Handle preview
+ipcMain.handle('load-preview', (_, filePath: string) => {
+  shell.openPath(filePath).catch(err => alert(err));
 });

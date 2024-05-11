@@ -24,6 +24,13 @@ export const SOLIAS_MENU_ITEMS: MenuItemConstructorOptions[] = [
                 accelerator: 'CmdOrCtrl+S'
             },
             {
+                label: 'Export',
+                click: async (_, win) => {
+                    win.webContents.send('export-from-menu');
+                },
+                accelerator: 'CmdOrCtrl+E'
+            },
+            {
                 type: 'separator',
             },
             {

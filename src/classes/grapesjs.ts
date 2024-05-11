@@ -1,12 +1,15 @@
 import grapesjs, { Editor } from "grapesjs";
 import { SOLIAS_BLOCKS } from "../shared/constants/blocks";
 import { SOLIAS_STYLE_SELECTORS } from "../shared/constants/style-selectors";
-import { ipcRenderer } from 'electron';
+import { SaveDialogReturnValue, ipcRenderer } from 'electron';
 import * as fs from 'fs';
 import { soliasDataValidations } from "../utils/validator";
+import { BASE_HTML_TEMPLATE } from "../shared/constants/base-html";
+import { ISoliasFileData } from "../shared/interfaces/file-data.interface";
 
 export class SoliasGrapesJS {
     public editor: Editor;
+    private savedFilePath: string;
 
     init(): void {
         /* Initialize GrapeJS Editor */
@@ -124,6 +127,18 @@ export class SoliasGrapesJS {
                     </textarea>`)
                             .open();
                     }).bind(this),
+                },
+                {
+                    id: 'clear',
+                    className: 'material-icons',
+                    label: 'backspace',
+                    command: 'clear-html',
+                },
+                {
+                    id: 'preview',
+                    className: 'material-icons',
+                    label: 'preview',
+                    command: 'preview-window',
                 }
             ],
         });
@@ -244,6 +259,20 @@ export class SoliasGrapesJS {
                 const elmt = this.getLayersEl(this.getRowEl(editor));
                 elmt.style.display = 'none';
             },
+        });
+        // Clear designer
+        this.editor.Commands.add('clear-html', {
+            run: editor => editor.DomComponents.clear()
+        });
+        // Preview
+        this.editor.Commands.add('preview-window', {
+            run: () => {
+                if (this.savedFilePath) {
+                    ipcRenderer.invoke('load-preview', this.savedFilePath);
+                } else {
+                    alert('Project not saved. Export the project as HTML to preview.')
+                }
+            }
         });
         // Set viewport to desktop
         this.editor.Commands.add('set-device-desktop', {
@@ -406,8 +435,26 @@ export class SoliasGrapesJS {
         }));
         // Save file dialog event
         ipcRenderer.on('savefile-from-menu', () => {
-            const jsonData = JSON.stringify(this.editor.getComponents());
+            const jsonData: ISoliasFileData = {
+                data: JSON.stringify(this.editor.getComponents()),
+                fileType: 'json'
+            };
             ipcRenderer.invoke('savefile', jsonData);
         });
+        // Export HTML
+        ipcRenderer.on('export-from-menu', () => {
+            this.exportToHTML();
+        });
+    }
+
+    private async exportToHTML() {
+        const renderedHTML: ISoliasFileData = {
+            data: BASE_HTML_TEMPLATE.start + this.editor.getHtml() + BASE_HTML_TEMPLATE.end,
+            fileType: 'html'
+        };
+        const result: SaveDialogReturnValue = await ipcRenderer.invoke('savefile', renderedHTML);
+        if (!result.canceled) {
+            this.savedFilePath = result.filePath;
+        }
     }
 }
