@@ -182,7 +182,7 @@ export const SOLIAS_BLOCKS = [
         activate: true,
         category: 'Media'
     },
-    {
+    /* {
         id: 'video',
         label: '&lt;video&gt;',
         select: true,
@@ -197,7 +197,7 @@ export const SOLIAS_BLOCKS = [
         content: '<audio></audio>',
         activate: true,
         category: 'Media'
-    },
+    }, */
     // Table
     {
         id: 'table',
