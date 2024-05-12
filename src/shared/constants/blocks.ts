@@ -15,7 +15,7 @@ export const SOLIAS_BLOCKS = [
     {
         id: 'p',
         label: '&lt;p&gt;',
-        content: '<p></p>',
+        content: '<p>lorem ipsum...</p>',
         category: 'Content'
     },
     {
@@ -27,13 +27,13 @@ export const SOLIAS_BLOCKS = [
     {
         id: 'br',
         label: '&lt;br&gt;',
-        content: '<br></br>',
+        content: '<br />',
         category: 'Content'
     },
     {
         id: 'a',
         label: '&lt;a&gt;',
-        content: '<a></a>',
+        content: '<a>link</a>',
         category: 'Content'
     },
     // Forms
@@ -163,9 +163,9 @@ export const SOLIAS_BLOCKS = [
         category: 'Lists'
     },
     {
-        id: 'ul',
-        label: '&lt;ul&gt;',
-        content: '<ul>lorem ipsum</ul>',
+        id: 'li',
+        label: '&lt;li&gt;',
+        content: '<li>lorem ipsum</li>',
         category: 'Lists'
     },
     // Media elements
@@ -220,7 +220,7 @@ export const SOLIAS_BLOCKS = [
     {
         id: 'td',
         label: '&lt;td&gt;',
-        content: '<td></td>',
+        content: '<td>lorem ipsum</td>',
         category: 'Table'
     },
     // Text Formatting
@@ -270,37 +270,37 @@ export const SOLIAS_BLOCKS = [
     {
         id: 'pre',
         label: '&lt;pre&gt;',
-        content: '<pre></pre>',
+        content: '<pre>lorem ipsum</pre>',
         category: 'Advanced Content'
     },
     {
         id: 'code',
         label: '&lt;code&gt;',
-        content: '<code></code>',
+        content: '<code>console.log("Hello World");</code>',
         category: 'Advanced Content'
     },
     {
         id: 'samp',
         label: '&lt;samp&gt;',
-        content: '<samp></samp>',
+        content: '<samp>lorem ipsum</samp>',
         category: 'Advanced Content'
     },
     {
         id: 'kbd',
         label: '&lt;kbd&gt;',
-        content: '<kbd></kbd>',
+        content: '<kbd>F1</kbd>',
         category: 'Advanced Content'
     },
     {
         id: 'mark',
         label: '&lt;mark&gt;',
-        content: '<mark></mark>',
+        content: '<mark>lorem ipsum</mark>',
         category: 'Advanced Content'
     },
     {
         id: 'var',
         label: '&lt;var&gt;',
-        content: '<var></var>',
+        content: '<var>x</var>',
         category: 'Advanced Content'
     },
 ];
