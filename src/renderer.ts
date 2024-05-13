@@ -4,4 +4,4 @@ import 'grapesjs/dist/css/grapes.min.css';
 import '@berkelium/primordial-theme/dist/styles.min.css';
 /* import './css/index.css'; */
 
-console.log('👋 Welcome to Solias');
+// console.log('👋 Welcome to Solias');
