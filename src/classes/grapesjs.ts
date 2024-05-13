@@ -86,8 +86,7 @@ export class SoliasGrapesJS {
             // Canvas settings
             canvas: {
                 styles: [
-                    'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap',
-                    'https://cdn.jsdelivr.net/npm/@berkelium/primordial-theme@latest/dist/styles.min.css'
+                    'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap'
                 ]
             }
         });
