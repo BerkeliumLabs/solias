@@ -4,28 +4,32 @@
     <meta charset="UTF-8" />
     <title>Solias</title>
   </head>
-  <body>
-    <!-- GrapesJS Starts -->
-    <div class="solias-designer">
-      <div id="tool-bar" class="solias-designer__panel-top">
-        <div id="tool-actions" class="solias-designer__actions"></div>
-        <div id="panel-devices" class="solias-designer__devices"></div>
-        <div id="panel-switcher" class="solias-designer__switcher"></div>
+  <body class="light">
+    <div class="solias-core">
+      <div class="solias-core__nav">
+        <ul class="solias-core__nav-list">
+          <li class="solias-core__nav-item" id="nav-design" onclick="() => changeView('nav-design')">
+            <span class="material-icons">design_services</span>
+            <span class="nav-label">Design<span>
+          </li>
+          <li class="solias-core__nav-item" id="nav-workflow" onclick="() => changeView('nav-workflow')">
+            <span class="material-icons">family_history</span>
+            <span class="nav-label">Workflow<span>
+          </li>
+          <li class="solias-core__nav-item" id="nav-database" onclick="() => changeView('nav-database')">
+            <span class="material-icons">database</span>
+            <span class="nav-label">Database<span>
+          </li>
+          <li class="solias-core__nav-item" id="nav-launch" onclick="() => changeView(this)">
+            <span class="material-icons">rocket_launch</span>
+            <span class="nav-label">Launch<span>
+          </li>
+        </ul>
       </div>
-      <div id="solias-workspace" class="solias-designer__workspace">
-        <div id="gjs" class="solias-designer__canvas">
-          <!-- Canvas Area -->
-        </div>
-        <div id="right-panel" class="solias-designer__panel-right">
-          <div id="blocks-palette" class="solias-designer__blocks"></div>
-          <div id="style-palette" class="solias-designer__styles"></div>
-          <div id="layers-palette" class="solias-designer__layers"></div>
-          <div id="traits-palette" class="solias-designer__traits"></div>
-        </div>
+      <div class="solias-core__workspace">
+        
       </div>
     </div>
-    <!-- GrapesJS Ends -->
-
     <!-- Renderer Script -->
     <script type="module" src="/src/renderer.ts"></script>
   </body>
