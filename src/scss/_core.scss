@@ -10,6 +10,7 @@
         width: 64px;
         height: 100vh;
         background-color: var(--solias-surface);
+        border-right: 1px solid var(--solias-outline-variant);
     }
 
     &__nav-list {
@@ -40,6 +41,9 @@
             background-color: var(--solias-secondary-container);
             font-weight: 600;
             border-right: 4px solid var(--solias-primary);
+            .nav-label, .material-icons {
+                color: var(--solias-primary);
+            }
         }
         .nav-label {
             font-size: 0.75rem;
