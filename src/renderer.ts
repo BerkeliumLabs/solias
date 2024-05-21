@@ -18,5 +18,4 @@ function changeView(evt: Event, listItem: HTMLLIElement) {
     if (view) {
       (view as HTMLDivElement).style.display = 'flex';
     }
-    console.log(evt, listItem);
 }
