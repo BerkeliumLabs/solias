@@ -1,0 +1,1 @@
+export const WORKFLOW_TEMPLATE = `<div class="solias-workflow">Workflow</div>`;

@@ -7,9 +7,10 @@
     &__nav {
         display: flex;
         flex-direction: column;
-        width: 80px;
+        width: 64px;
         height: 100vh;
         background-color: var(--solias-surface);
+        border-right: 1px solid var(--solias-outline-variant);
     }
 
     &__nav-list {
@@ -18,9 +19,8 @@
         margin: 0;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
-        gap: 8px;
     }
 
     &__nav-item {
@@ -30,7 +30,7 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
-        padding: 8px 12px;
+        padding: 12px;
         width: 100%;
         box-sizing: border-box;
         transition: background-color 0.5s ease;
@@ -41,8 +41,12 @@
             background-color: var(--solias-secondary-container);
             font-weight: 600;
             border-right: 4px solid var(--solias-primary);
+            .nav-label, .material-icons {
+                color: var(--solias-primary);
+            }
         }
         .nav-label {
+            font-size: 0.75rem;
             color: var(--solias-on-variant);
         }
     }
