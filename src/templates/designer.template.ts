@@ -1,0 +1,1 @@
+export const DESIGNER_TEMPLATE = `<div class="solias-designer">Designer</div>`;

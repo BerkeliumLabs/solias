@@ -1,0 +1,1 @@
+export const DATABASE_TEMPLATE = `<div class="solias-database">Database</div>`;
