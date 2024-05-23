@@ -2,6 +2,7 @@ import { WORKFLOW_TEMPLATE } from "../templates/workflow.template";
 import { DESIGNER_TEMPLATE } from "../templates/designer.template";
 import { DATABASE_TEMPLATE } from "../templates/database.template";
 import { LAUNCH_TEMPLATE } from "../templates/launch.template";
+import { SoliasDesigner } from "./solias-designer";
 
 export class SoliasCore {
     public controlMap = {
@@ -17,6 +18,8 @@ export class SoliasCore {
         this.controlMap.WORKFLOW_VIEW.innerHTML = WORKFLOW_TEMPLATE;
         this.controlMap.DATABASE_VIEW.innerHTML = DATABASE_TEMPLATE;
         this.controlMap.LAUNCHER_VIEW.innerHTML = LAUNCH_TEMPLATE;
+        const designer = new SoliasDesigner();
+        designer.init();
     }
 
     private clearViews(): void {
