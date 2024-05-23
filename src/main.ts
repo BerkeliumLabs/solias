@@ -1,9 +1,10 @@
 import { app, BrowserWindow, ipcMain, Menu, SaveDialogReturnValue, shell } from 'electron';
 import path from 'path';
-import { spawn } from 'child_process';
+import { spawn, exec } from 'child_process';
 import { SOLIAS_MENU_ITEMS } from './utils/menu';
 import { SoliasFileManager } from './utils/file-manager';
 import { ISoliasFileData } from './shared/interfaces/file-data.interface';
+import { SoliasCLIOptions } from './shared/interfaces/cli-options.interface';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -34,7 +35,7 @@ const createWindow = () => {
   Menu.setApplicationMenu(mainMenu);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // open maximized
   mainWindow.maximize();
@@ -82,11 +83,32 @@ ipcMain.handle('load-preview', (_, filePath: string) => {
   shell.openPath(filePath).catch(err => alert(err));
 });
 // Handle CLI
-ipcMain.handle('cli', async (_) => {
-  const cmd = spawn('node', ['-v']);
+ipcMain.handle('cli-spawn', async (_, args: SoliasCLIOptions) => {
+  const cmd = spawn(args.cmd, args.params);
   const cliOut = new Promise((resolve, reject) => {
     cmd.stdout.on('data', data => resolve(data.toString()));
     cmd.stderr.on('data', data => reject(data.toString()));
+    cmd.on('error', error => reject(error));
+    cmd.on('close', code => console.log(`Exit with code: ${code}`));
+  });
+
+  return Promise.all([cliOut]);
+});
+// Handle Path
+ipcMain.handle('cli-exec', (_) => {
+
+  const cliOut = new Promise((resolve, reject) => {
+    exec('ng version', (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+      }
+  
+      if (stderr) {
+        reject(stderr);
+      }
+  
+      resolve(stdout);
+    });
   });
 
   return Promise.all([cliOut]);
