@@ -1,3 +1,5 @@
+import { SoliasCLIOptions } from "./cli-options.interface";
+
 export interface SoliasCoreService {
-    version(): Promise<any>;
+    version(args: SoliasCLIOptions): Promise<any>;
 }

@@ -1,15 +1,23 @@
-@import './theme';
-@import './fonts';
-@import './icons';
-@import './core';
+@import "./theme";
+@import "./fonts";
+@import "./icons";
+@import "./core";
 
 /* Views */
-@import './views/designer';
+@import "./views/error";
+@import "./views/designer";
 
-html, body {
-  font-family: 'Noto', sans-serif;
+html,
+body {
+  font-family: "Noto", sans-serif;
   font-size: 14px;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.app-root {
+  display: flex;
+  height: 100vh;
+  width: 100%;
 }
