@@ -13,8 +13,46 @@
     }
     &__side-panel {
         display: flex;
+        flex-direction: column;
         width: 25%;
         height: 100%;
         border-left: 1px solid var(--solias-outline-variant);
+    }
+    &__panel-switch {
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+        width: 100%;
+        .panel-switcher {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 8px;
+            border-right: 1px solid var(--solias-outline-variant);
+            border-top: 1px solid var(--solias-outline-variant);
+            border-bottom: 1px solid var(--solias-outline-variant);
+            cursor: pointer;
+            &.active {
+                border-bottom: 0;
+                .material-icons {
+                    color: var(--solias-primary);
+                }
+            }
+        }
+    }
+    &__panel-container {
+        flex-grow: 1;
+        display: flex;
+        width: 100%;
+        .panel-container {
+            display: none;
+            height: 100%;
+            width: 100%;
+            padding: 8px;
+            &.active {
+                display: flex;
+            }
+        }
     }
 }

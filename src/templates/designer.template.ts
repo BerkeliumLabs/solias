@@ -3,5 +3,17 @@ export const DESIGNER_TEMPLATE = `<div class="solias-designer">
         <div id="solias-canvas" class="solias-designer__canvas"></div>
     </div>
     <div class="solias-designer__side-panel">
+        <div class="solias-designer__panel-switch">
+            <div class="panel-switcher active" data-panel="container-components">
+                <span class="material-icons">category</span>
+            </div>
+            <div class="panel-switcher" data-panel="container-attributes">
+                <span class="material-icons">tune</span>
+            </div>
+        </div>
+        <div class="solias-designer__panel-container">
+            <div class="panel-container" id="container-components">components</div>
+            <div class="panel-container" id="container-attributes">attributes</div>
+        </div>
     </div>
 </div>`;

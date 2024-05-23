@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, Menu, SaveDialogReturnValue, shell } from 'electron';
 import path from 'path';
+import { spawn } from 'child_process';
 import { SOLIAS_MENU_ITEMS } from './utils/menu';
 import { SoliasFileManager } from './utils/file-manager';
 import { ISoliasFileData } from './shared/interfaces/file-data.interface';
@@ -79,4 +80,14 @@ ipcMain.handle('savefile', async (_, fileData: ISoliasFileData): Promise<SaveDia
 // Handle preview
 ipcMain.handle('load-preview', (_, filePath: string) => {
   shell.openPath(filePath).catch(err => alert(err));
+});
+// Handle CLI
+ipcMain.handle('cli', async (_) => {
+  const cmd = spawn('node', ['-v']);
+  const cliOut = new Promise((resolve, reject) => {
+    cmd.stdout.on('data', data => resolve(data.toString()));
+    cmd.stderr.on('data', data => reject(data.toString()));
+  });
+
+  return Promise.all([cliOut]);
 });
