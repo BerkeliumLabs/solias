@@ -46,6 +46,9 @@ function checkVersions() {
                                 /* Initialize Solias App */
                                 appRoot.innerHTML = CORE_TEMPLATE;
                                 loadApp();
+                            } else {
+                                setMessage(`Angular CLI version required: ${ngVersion}.x.x, but found ${angularCliVersion}.
+                                Please install Angular CLI version using: npm i @angular/cli@${ngVersion}`);
                             }
                         } else {
                             setMessage("Angular CLI version not found in the string.");
@@ -55,7 +58,8 @@ function checkVersions() {
                         console.error(error);
                     });
                 } else {
-                    setMessage(data[0]);
+                    setMessage(`Node version required: ${nodeVersion}, but found ${currentNodeVersion}.
+                    Please install Node version: ${nodeVersion}.`);
                 }
             }
         }).catch((error) => {
