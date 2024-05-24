@@ -1,6 +1,10 @@
 export const DESIGNER_TEMPLATE = `<div class="solias-designer">
     <div class="solias-designer__container">
-        <div id="solias-canvas" class="solias-designer__canvas"></div>
+        <div id="solias-canvas" class="solias-designer__canvas">
+            <div class="empty-block">
+                <span class="material-icons">add</span>
+            </div>
+        </div>
     </div>
     <div class="solias-designer__side-panel">
         <div class="solias-designer__panel-switch">
@@ -16,4 +20,5 @@ export const DESIGNER_TEMPLATE = `<div class="solias-designer">
             <div class="panel-container" id="container-attributes">attributes</div>
         </div>
     </div>
-</div>`;
+</div>
+<dialog class="solias-designer__blocks" id="blocks-dialog"></dialog>`;
